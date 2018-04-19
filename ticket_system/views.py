@@ -1,7 +1,10 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render
+from django.http import HttpResponseRedirect, HttpResponse;
 from ticket_system.models import Ticket
 from ticket_system.forms import TicketForm
+from django.core.mail import send_mail
+from django.conf import settings;
+
 
 
 def all_tickets_view(request):
@@ -19,9 +22,24 @@ def add_ticket_view(request):
     if request.method == "POST":
         form = TicketForm(request.POST);
         if form.is_valid():
-            form.save();
-            ### Send Email to user to confirm sending issue #####
+            ticket = form.save();
+
+
+            ##### Send Email to user to confirm sending issue #####
+
+            subject = "Message submitted successfully!";
+            from_email = settings.EMAIL_HOST_USER;
+            to_email = [ticket.ticket_user_email];
+            messege = """
+
+                    Thank you for contacting us !
+
+                    Your issue has been recorded and you can track its status through this link
+
+                    http://localhost:8000/tickets/track/""" + str(ticket.id);
+            send_mail(subject=subject, from_email=from_email, recipient_list=to_email, message=messege, fail_silently=False);
             return HttpResponseRedirect("/tickets/all");
+
     context = {
         "form":form,
     }
@@ -43,9 +61,16 @@ def change_status_view(request, ticket_id):
 
     ### Send Email to notify user that case is resolved ######
 
-
-
-
+    if(ticket.ticket_status):
+        subject = "Issue Solved";
+        from_email = settings.EMAIL_HOST_USER;
+        to_email = [ticket.ticket_user_email];
+        messege = """
+            
+            Thank you for contacting us !
+            
+            Your issue number #""" + str(ticket.id) + """ has been successfully resolved. """ ;
+        send_mail(subject=subject, from_email=from_email, recipient_list=to_email, message=messege, fail_silently=False);
 
     return HttpResponseRedirect("/tickets/all");
 
