@@ -13,7 +13,7 @@ class Ticket(models.Model):
     ticket_title = models.CharField(max_length=255);
     ticket_description = models.TextField();
     ticket_user_email = models.EmailField(max_length=255);
-    ticket_state = models.IntegerField(
+    ticket_status = models.IntegerField(
         max_length=255,
         choices=STATE_CHOICES,
         default=PENDING,

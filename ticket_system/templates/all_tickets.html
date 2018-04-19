@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <br><br>
+    <table class="table table-light table-bordered table-hover">
+
+                <thead class="thead-light">
+
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Action</th>
+
+                </thead>
+
+                <tbody>
+
+                        {% for ticket in tickets %}
+
+                            <tr>
+
+                                    <td>{{ ticket.ticket_title }}</td>
+                                    <td>{{  ticket.ticket_status|yesno:"Resolved, Pending" }}</td>
+                                    <td><a href="/tickets/edit/{{ ticket.id }}"><button class="btn btn-outline-info">Edit</button></a></td>
+                            </tr>
+
+                        {% endfor %}
+
+                </tbody>
+
+    </table>
+
+{% endblock %}

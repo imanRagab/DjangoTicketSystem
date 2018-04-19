@@ -5,11 +5,11 @@ from ticket_system.forms import TicketForm
 
 
 def all_tickets_view(request):
-   all_tickets = Ticket.objects.all()
+   all_tickets = Ticket.objects.order_by('ticket_status')
    context = {
        "tickets":all_tickets
    }
-   return render(request,'alltickets.html',context)
+   return render(request,'all_tickets.html',context)
 
 ################################################
 
