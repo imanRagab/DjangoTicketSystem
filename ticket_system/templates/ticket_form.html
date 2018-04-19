@@ -2,15 +2,22 @@
 
 {% block content %}
 
-    <center>
-        <form method="post" action="/tickets/add/" enctype="multipart/form-data">{% csrf_token %}
+    <br><br>
+    <form method="POST" action="/tickets/add/" enctype="multipart/form-data">{% csrf_token %}
+            <div class="form-group">
+              <label>Title</label>
+              {{ form.ticket_title}}
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              {{ form.ticket_description }}
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                {{ form.ticket_user_email }}
+            </div>
+            <button type="submit" class="btn btn-success btn-lg">Send</button>
+    </form>
 
-
-                {{form.as_p}}
-
-                  <br><br><button class="btn-sm btn-success" type="submit">Send</button>
-
-              </form>
-    </center>
 
 {% endblock %}

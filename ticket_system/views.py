@@ -8,7 +8,7 @@ from django.conf import settings;
 
 
 def all_tickets_view(request):
-   all_tickets = Ticket.objects.order_by('ticket_status');
+   all_tickets = Ticket.objects.order_by('ticket_status', '-ticket_created_at');
    context = {
        "tickets":all_tickets
    }

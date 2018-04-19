@@ -12,4 +12,22 @@ class TicketForm(forms.ModelForm):
             'ticket_user_email',
         )
 
+        widgets = {
+            'ticket_title': forms.TextInput(attrs={
+                'id': 'title',
+                'required': True,
+                'class': "form-control",
+            }),
+            'ticket_description': forms.Textarea(attrs={
+                'id': 'description',
+                'required': True,
+                'class': "form-control",
+            }),
+            'ticket_user_email': forms.TextInput(attrs={
+                'id': 'email',
+                'required': True,
+                'class': "form-control",
+            }),
+        }
+
 
