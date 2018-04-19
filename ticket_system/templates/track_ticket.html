@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <br><br>
+
+    <div class="card-group" style="width:40rem;">
+        <div class="card">
+
+            <div class="card-header">
+                #{{ ticket.id }}
+                {% if not ticket.ticket_status %}
+                        <span style="color:red">Pending</span>
+                {% else %}
+                        <span style="color:green">Resolved</span>
+                {% endif %}
+
+
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title">{{ ticket.ticket_title }}</h5>
+                <p class="card-text">{{ ticket.ticket_description }}</p>
+            </div>
+        </div>
+    </div>
+
+    <br><br>
+
+{% endblock %}

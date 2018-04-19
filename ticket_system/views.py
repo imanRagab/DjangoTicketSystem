@@ -20,6 +20,7 @@ def add_ticket_view(request):
         form = TicketForm(request.POST);
         if form.is_valid():
             form.save();
+            ### Send Email to user to confirm sending issue #####
             return HttpResponseRedirect("/tickets/all");
     context = {
         "form":form,
@@ -42,8 +43,19 @@ def change_status_view(request, ticket_id):
 
     ### Send Email to notify user that case is resolved ######
 
-    
+
 
 
 
     return HttpResponseRedirect("/tickets/all");
+
+##################################################
+
+def track_ticket_view(request, ticket_id):
+
+    ticket = Ticket.objects.get(id=ticket_id);
+
+    context = {
+        "ticket": ticket
+    }
+    return render(request, 'track_ticket.html', context);
